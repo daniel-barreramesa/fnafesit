@@ -1,1 +1,1 @@
-g++ .\main.cc -I..\raylib\raylib-4.2.0_win64_mingw-w64\include -L..\raylib\raylib-4.2.0_win64_mingw-w64\lib -lraylib -lopengl32 -lgdi32 -lwinmm -o ejecutable.exe
+g++ .\main.cc .\night1.cc -I..\raylib\raylib-4.2.0_win64_mingw-w64\include -L..\raylib\raylib-4.2.0_win64_mingw-w64\lib -lraylib -lopengl32 -lgdi32 -lwinmm -o ejecutable.exe
