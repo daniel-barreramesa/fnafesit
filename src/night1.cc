@@ -19,7 +19,7 @@ void FondoAula::Update(bool abierto){ //Ejecuta el movimiento de la imagen del f
   if(x_ < (1280-2000))
    x_ = (1280-2000);
 }
-void Mapa(Texture2D mapa, Texture2D camaras, bool &abierto){ //Abre y cierra el mapa
+void Mapa(Texture2D mapa, bool &abierto){ //Abre y cierra el mapa
   if(IsKeyPressed(KEY_TAB)){
     if(abierto == true)
       abierto = false;
@@ -28,6 +28,10 @@ void Mapa(Texture2D mapa, Texture2D camaras, bool &abierto){ //Abre y cierra el 
   }
   if(abierto == true){
     DrawTexture(mapa, 0, 0, WHITE);
+    }
+}
+void Camaras(Texture2D camaras, bool abierto){ //Abre y cierra el mapa
+  if(abierto == true){
     DrawTexture(camaras, 0, 0, WHITE);
     }
 }
@@ -101,6 +105,10 @@ void EmpezarNoche1(){
   Texture2D camaras = LoadTextureFromImage(foto3);
   UnloadImage(foto3);
 
+  Image foto4 = LoadImage("Images/cam7.png");
+  Texture2D camara7 = LoadTextureFromImage(foto4);
+  UnloadImage(foto4);
+
   //BUCLE DEL JUEGO
   //Se ejecuta 60 veces por segundo
   while(WindowShouldClose() == false){ 
@@ -109,7 +117,9 @@ void EmpezarNoche1(){
     ClearBackground(RAYWHITE);
     a1.Dibujar(aula);
     DrawFPS(20, 30);
-    Mapa(mapa, camaras, abierto); //Dibujo las cámaras si están abiertas
+    Mapa(mapa, abierto); //Dibujo las cámaras si están abiertas
+    //DrawTexture(camara7, 0, 0, WHITE);
+    Camaras(camaras, abierto);
    
     
 

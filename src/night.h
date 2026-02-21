@@ -22,4 +22,5 @@ class BotonNoches{
   };
 
 void EmpezarNoche1();
-void Mapa(Texture2D mapa, Texture2D camaras, bool &abierto);
+void Mapa(Texture2D mapa, bool &abierto);
+void Camaras(Texture2D Camaras, bool abierto);
