@@ -1,6 +1,8 @@
 #include<iostream>
 #include <raylib.h>
 
+#include "night.h"
+
 int main(){
   //DECLARACIONES
   //Definimos las variables
@@ -8,7 +10,7 @@ int main(){
 
   const int alto_pantalla = 800;
   const int ancho_pantalla = 1280;
-  InitWindow(ancho_pantalla, alto_pantalla, "FNAF");
+  InitWindow(ancho_pantalla, alto_pantalla, "FNAF ESIT");
   SetTargetFPS(60);
 
   //Objetos
@@ -30,6 +32,9 @@ int main(){
     void clicked(int opcion){
       switch (opcion)
       {
+      case 2:
+        EmpezarNoche1();
+        break;
       case 4:
         std::cout << "SALIR \n";
         CloseWindow();
@@ -55,7 +60,7 @@ int main(){
   Boton boton_salir;
 
   //Imagenes
-  Image fondo = LoadImage("Captura.png");
+  Image fondo = LoadImage("Images/Captura.png");
   Texture2D fondoIm = LoadTextureFromImage(fondo); 
   UnloadImage(fondo);
 
