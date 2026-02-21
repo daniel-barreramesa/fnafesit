@@ -1,0 +1,1 @@
+g++ .\main.cc -ID:\raylib-4.2.0_win64_mingw-w64\include -LD:\raylib-4.2.0_win64_mingw-w64\lib -lraylib -lopengl32 -lgdi32 -lwinmm -o ejecutable.exe
