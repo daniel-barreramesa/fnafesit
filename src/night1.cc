@@ -4,7 +4,8 @@
 
 #include"night.h"
 
-//IMPLEMENTACIÓN DE LOS MÉTODOS
+
+//IMPLEMENTACIÓN DE LOS MÉTODOS Y FUNCIONES
 void FondoAula::Dibujar(Texture2D aula){
   DrawTexture(aula, x_, 0, WHITE);
 }
@@ -92,6 +93,22 @@ void Cesar::mover(float &timer, float &delta){
   }
 }
 
+void DibujarAM(float &timerAM, float &deltaAM){
+  timerAM += deltaAM;
+  if(timerAM >= 0 && timerAM < 90)
+    DrawText("1 AM", 1150, 30, 30, WHITE);
+  if(timerAM >= 90 && timerAM < 180)
+    DrawText("2 AM", 1150, 30, 30, WHITE);
+  if(timerAM >= 180 && timerAM < 270)
+    DrawText("3 AM", 1150, 30, 30, WHITE);
+  if(timerAM >= 270 && timerAM < 360)
+    DrawText("4 AM", 1150, 30, 30, WHITE);
+  if(timerAM >= 360 && timerAM < 450)
+    DrawText("5 AM", 1150, 30, 30, WHITE);
+  if(timerAM >= 450 && timerAM < 540)
+    DrawText("6 AM", 1150, 30, 30, WHITE);
+}
+
 void EmpezarNoche1(){
   //DECLARACIONES
   bool abierto = false;
@@ -102,7 +119,8 @@ void EmpezarNoche1(){
   v3.y = 350+45;
   v2.x = 1030+40;
   v2.y = 420;
-
+  
+  
   //OBJETOS
   FondoAula a1;
   
@@ -118,6 +136,7 @@ void EmpezarNoche1(){
 
   Cesar cesar;
 
+  
   //IMAGENES
   //Creo la textura del aula
   Image foto = LoadImage("Images/AulaNoche.png");
@@ -143,6 +162,8 @@ void EmpezarNoche1(){
   float timerAM{0.0};
   float deltaAM = GetFrameTime();
 
+  
+
   //BUCLE DEL JUEGO
   //Se ejecuta 60 veces por segundo
   while(WindowShouldClose() == false){ 
@@ -154,7 +175,7 @@ void EmpezarNoche1(){
     Mapa(mapa, abierto); //Dibujo las cámaras si están abiertas
     //DrawTexture(camara7, 0, 0, WHITE);
     Camaras(camaras, abierto);
-   
+    DibujarAM(timerAM, deltaAM);
     
 
     //Update
@@ -193,5 +214,7 @@ void EmpezarNoche1(){
   UnloadTexture(aula);
   UnloadTexture(mapa);
   UnloadTexture(camaras);
+  UnloadTexture(camara7);
+  
   CloseWindow();
 }

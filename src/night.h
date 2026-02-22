@@ -24,7 +24,7 @@ class BotonNoches{
 void EmpezarNoche1();
 void Mapa(Texture2D mapa, bool &abierto);
 void Camaras(Texture2D Camaras, bool abierto);
-
+void DibujarAM(float &timerAM, float &deltaAM);
 
 //CARLOS
 class Cesar{
