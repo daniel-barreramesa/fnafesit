@@ -15,6 +15,8 @@ void FondoAula::Update(bool abierto){ //Ejecuta el movimiento de la imagen del f
     x_ -= 5;
   if(IsKeyDown(KEY_A))
     x_ += 5;
+  if(IsKeyDown(KEY_S))
+    std::cout << "Bajo la mesa \n";
   }
   if(x_ > 0)
    x_ = 0;
@@ -79,11 +81,72 @@ void Cesar::mover(float &timer, float &delta){
       std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
       if(dist(gen)){
         std::cout << "Moverse \n";
+        std::cout << "Cesar está en la cámara 3 \n";
+        numero_camara_ = 3;
       }
       else{
         std::cout << "No Moverse \n";
       }
-      
+      timer = 0.0;
+    }
+    break;
+  case 3:
+    timer += delta;
+    if(timer >= 20.0){
+      std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
+      if(dist(gen)){
+        std::cout << "Moverse \n";
+        std::cout << "Cesar está en la cámara 5 \n";
+        numero_camara_ = 5;
+      }
+      else{
+        std::cout << "No Moverse \n";
+      }
+      timer = 0.0;
+    }
+    break;
+  case 5:
+    timer += delta;
+    if(timer >= 20.0){
+      std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
+      if(dist(gen)){
+        std::cout << "Moverse \n";
+        std::cout << "Cesar está en la cámara 7 \n";
+        numero_camara_ = 7;
+      }
+      else{
+        std::cout << "No Moverse \n";
+      }
+      timer = 0.0;
+    }
+    break;
+  case 7:
+    timer += delta;
+    if(timer >= 20.0){
+      std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
+      if(dist(gen)){
+        std::cout << "Moverse \n";
+        std::cout << "Cesar está en la cámara 8 \n";
+        numero_camara_ = 8;
+      }
+      else{
+        std::cout << "No Moverse \n";
+      }
+      timer = 0.0;
+    }
+    break;
+  case 8:
+    timer += delta;
+    if(timer >= 20.0){
+      std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
+      if(dist(gen)){
+        std::cout << "Moverse \n";
+        std::cout << "Cesar está en la cámara 9 \n";
+        numero_camara_ = 8; //FALTA MODIFICAR
+      }
+      else{
+        std::cout << "No Moverse \n";
+      }
       timer = 0.0;
     }
     break;
