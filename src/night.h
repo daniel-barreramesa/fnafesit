@@ -24,3 +24,11 @@ class BotonNoches{
 void EmpezarNoche1();
 void Mapa(Texture2D mapa, bool &abierto);
 void Camaras(Texture2D Camaras, bool abierto);
+
+
+//CARLOS
+class Cesar{
+  public:
+    int numero_camara_{2};
+    void mover(float &timer, float &delta);
+};

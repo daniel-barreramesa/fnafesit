@@ -1,5 +1,6 @@
 #include <iostream>
 #include <raylib.h>
+#include <random>
 
 #include"night.h"
 
@@ -67,6 +68,30 @@ void BotonNoches::update(int opcion){
   }
 }
 
+void Cesar::mover(float &timer, float &delta){
+  std::random_device rd;
+  std::mt19937 gen(rd()); //para las probabilidades de moverse
+  switch (numero_camara_){
+  case 2:
+    timer += delta;
+    if(timer >= 20.0){
+      std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
+      if(dist(gen)){
+        std::cout << "Moverse \n";
+      }
+      else{
+        std::cout << "No Moverse \n";
+      }
+      
+      timer = 0.0;
+    }
+    break;
+  
+  default:
+    break;
+  }
+}
+
 void EmpezarNoche1(){
   //DECLARACIONES
   bool abierto = false;
@@ -91,6 +116,8 @@ void EmpezarNoche1(){
   BotonNoches cam8;
   BotonNoches cam9;
 
+  Cesar cesar;
+
   //IMAGENES
   //Creo la textura del aula
   Image foto = LoadImage("Images/AulaNoche.png");
@@ -108,6 +135,13 @@ void EmpezarNoche1(){
   Image foto4 = LoadImage("Images/cam7.png");
   Texture2D camara7 = LoadTextureFromImage(foto4);
   UnloadImage(foto4);
+  
+  //VARIABLES DE TIEMPO
+  float timer{0.0};
+  float delta = GetFrameTime();
+
+  float timerAM{0.0};
+  float deltaAM = GetFrameTime();
 
   //BUCLE DEL JUEGO
   //Se ejecuta 60 veces por segundo
@@ -125,6 +159,7 @@ void EmpezarNoche1(){
 
     //Update
     a1.Update(abierto);
+    cesar.mover(timer, delta);
 
     //Dibujar los botones de la cámara
     if(abierto == true){
@@ -132,9 +167,9 @@ void EmpezarNoche1(){
       cam1.update(1);
       cam2.dibujar(710, 610, 80, 45, "CAM 2");
       cam2.update(2);
-      cam3.dibujar(730, 550, 80, 45, "CAM 3");
+      cam3.dibujar(730, 500, 80, 45, "CAM 3");
       cam3.update(3);
-      cam4.dibujar(730, 500, 80, 45, "CAM 4");
+      cam4.dibujar(730, 450, 80, 45, "CAM 4");
       cam4.update(4);
       cam5.dibujar(870, 500, 80, 45, "CAM 5");
       cam5.update(5);
@@ -156,5 +191,7 @@ void EmpezarNoche1(){
     EndDrawing();
   }
   UnloadTexture(aula);
+  UnloadTexture(mapa);
+  UnloadTexture(camaras);
   CloseWindow();
 }
