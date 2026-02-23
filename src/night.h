@@ -17,14 +17,16 @@ class BotonNoches{
     int alto_;
     
     void dibujar(int x, int y, int ancho, int alto, const char* texto);
-    void clicked(int opcion);
-    void update(int opcion);
+    void clicked(int opcion, int &numero_camara);
+    void update(int opcion, int &numero_camara);
   };
 
 void EmpezarNoche1();
 void Mapa(Texture2D mapa, bool &abierto);
 void Camaras(Texture2D Camaras, bool abierto);
 void DibujarAM(float &timerAM, float &deltaAM);
+void DibujarMascara(Texture2D mascara);
+void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2);
 
 //CARLOS
 class Cesar{
