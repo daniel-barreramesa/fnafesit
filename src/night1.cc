@@ -202,12 +202,18 @@ void DibujarAM(float &timerAM, float &deltaAM){
     DrawText("6 AM", 1150, 30, 30, WHITE);
 }
 
-void DibujarMascara(Texture2D mascara){
+void DibujarMascara(Texture2D mascara, bool abierto){
+  if(!abierto){
   if (IsKeyDown(KEY_S)) {}
   else if (IsKeyDown(KEY_W))
     DrawTexture(mascara, 0, 0, WHITE);
+  }
 }
 
+//Paso como argumentos si está aberto el panel de las cámaras, la cámara actual,
+//todas las texturas de las cámaras y personajes, y los objetos de los personajes.
+//Si el panel está abierto comprueba si en la cámara actual hay personajes, dibuja
+//el fondo actual y los personajes que se encuentren en ella.
 void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2){
   if(abierto){
   switch (numero_camara){
@@ -299,7 +305,7 @@ void EmpezarNoche1(){
     //DrawTexture(camara7, 0, 0, WHITE);
     DibujarCamaraActual(abierto, numero_camara, camara2);
     Camaras(camaras, abierto);
-    DibujarMascara(mascara);
+    DibujarMascara(mascara, abierto);
     DibujarAM(timerAM, deltaAM);
     DrawFPS(20, 30);
     

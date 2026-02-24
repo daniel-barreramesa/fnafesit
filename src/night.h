@@ -25,7 +25,7 @@ void EmpezarNoche1();
 void Mapa(Texture2D mapa, bool &abierto);
 void Camaras(Texture2D Camaras, bool abierto);
 void DibujarAM(float &timerAM, float &deltaAM);
-void DibujarMascara(Texture2D mascara);
+void DibujarMascara(Texture2D mascara, bool abierto);
 void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2);
 
 //CARLOS
