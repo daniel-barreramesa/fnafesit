@@ -214,7 +214,7 @@ void DibujarMascara(Texture2D mascara, bool abierto){
 //todas las texturas de las cámaras y personajes, y los objetos de los personajes.
 //Si el panel está abierto comprueba si en la cámara actual hay personajes, dibuja
 //el fondo actual y los personajes que se encuentren en ella.
-void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2){
+void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Texture2D camara3, Texture2D camara7, Texture2D camara9, Texture2D camara8){
   if(abierto){
   switch (numero_camara){
     case 1:
@@ -222,6 +222,18 @@ void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2){
     break;
     case 2:
       DrawTexture(camara2, 0, 0, WHITE);
+    break;
+    case 3:
+      DrawTexture(camara3, 0, 0, WHITE);
+    break;
+    case 7:
+      DrawTexture(camara7, 0, 0, WHITE);
+    break;
+    case 9:
+      DrawTexture(camara9, 0, 0, WHITE);
+    break;
+    case 8:
+      DrawTexture(camara8, 0, 0, WHITE);
     break;
   
   default:
@@ -272,7 +284,7 @@ void EmpezarNoche1(){
   Texture2D camaras = LoadTextureFromImage(foto3);
   UnloadImage(foto3);
 
-  Image foto4 = LoadImage("Images/cam7.png");
+  Image foto4 = LoadImage("Images/camara7.png");
   Texture2D camara7 = LoadTextureFromImage(foto4);
   UnloadImage(foto4);
 
@@ -283,6 +295,18 @@ void EmpezarNoche1(){
   Image foto6 = LoadImage("Images/cafeteria.png");
   Texture2D camara2 = LoadTextureFromImage(foto6);
   UnloadImage(foto6);
+
+  Image foto7 = LoadImage("Images/camara3.png");
+  Texture2D camara3 = LoadTextureFromImage(foto7);
+  UnloadImage(foto7);
+
+  Image foto8 = LoadImage("Images/camara9.png");
+  Texture2D camara9 = LoadTextureFromImage(foto8);
+  UnloadImage(foto8);
+
+  Image foto9 = LoadImage("Images/cam8.png");
+  Texture2D camara8 = LoadTextureFromImage(foto9);
+  UnloadImage(foto9);
 
   
   //VARIABLES DE TIEMPO
@@ -303,7 +327,7 @@ void EmpezarNoche1(){
     a1.Dibujar(aula);
     Mapa(mapa, abierto); //Dibujo las cámaras si están abiertas
     //DrawTexture(camara7, 0, 0, WHITE);
-    DibujarCamaraActual(abierto, numero_camara, camara2);
+    DibujarCamaraActual(abierto, numero_camara, camara2, camara3, camara7, camara9, camara8);
     Camaras(camaras, abierto);
     DibujarMascara(mascara, abierto);
     DibujarAM(timerAM, deltaAM);
@@ -349,6 +373,9 @@ void EmpezarNoche1(){
   UnloadTexture(camara7);
   UnloadTexture(mascara);
   UnloadTexture(camara2);
+  UnloadTexture(camara3);
+  UnloadTexture(camara9);
+  UnloadTexture(camara8);
   
   CloseWindow();
 }

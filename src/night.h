@@ -26,7 +26,7 @@ void Mapa(Texture2D mapa, bool &abierto);
 void Camaras(Texture2D Camaras, bool abierto);
 void DibujarAM(float &timerAM, float &deltaAM);
 void DibujarMascara(Texture2D mascara, bool abierto);
-void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2);
+void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Texture2D camara3, Texture2D camara7, Texture2D camara9, Texture2D camara8);
 
 //CARLOS
 class Cesar{
