@@ -49,6 +49,26 @@ void BotonNoches::dibujar(int x, int y, int ancho, int alto, const char* texto){
   alto_ = alto;
 }
 
+void BotonNoches::dibujarrojo(int x, int y, int ancho, int alto, const char* texto){
+  DrawRectangle(x, y, ancho, alto, RED);
+  DrawText(texto, x+(10), y+(alto/4), 20, WHITE);
+  x_ = x;
+  y_ = y;
+  ancho_ = ancho;
+  alto_ = alto;
+}
+
+bool BotonNoches::is_clicked(){ //metodo creado para sabotear
+  Vector2 mousePos = GetMousePosition();
+  if ((int)mousePos.x > x_ && (int)mousePos.x < x_+ancho_ && (int)mousePos.y > y_ && (int)mousePos.y < y_+alto_) {
+    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+      std::cout << "CLICK \n";
+      return true;
+     }
+  }
+  return false;
+}
+
 void BotonNoches::clicked(int opcion, int &numero_camara){
   switch (opcion)
   {
@@ -154,7 +174,7 @@ void Cesar::mover(float &timer, float &delta){
     timer += delta;
     if(timer >= 20.0){
       std::bernoulli_distribution dist(0.65); //65% de probabiliad de movimiento
-      if(dist(gen)){
+      if(dist(gen) && ascensor){
         std::cout << "Moverse \n";
         std::cout << "Cesar está en la cámara 8 \n";
         numero_camara_ = 8;
@@ -189,16 +209,18 @@ void Cesar::mover(float &timer, float &delta){
 void DibujarAM(float &timerAM, float &deltaAM){
   timerAM += deltaAM;
   if(timerAM >= 0 && timerAM < 90)
-    DrawText("1 AM", 1150, 30, 30, WHITE);
+    DrawText("12 PM", 1150, 30, 30, WHITE);
   if(timerAM >= 90 && timerAM < 180)
-    DrawText("2 AM", 1150, 30, 30, WHITE);
+    DrawText("1 AM", 1150, 30, 30, WHITE);
   if(timerAM >= 180 && timerAM < 270)
-    DrawText("3 AM", 1150, 30, 30, WHITE);
+    DrawText("2 AM", 1150, 30, 30, WHITE);
   if(timerAM >= 270 && timerAM < 360)
-    DrawText("4 AM", 1150, 30, 30, WHITE);
+    DrawText("3 AM", 1150, 30, 30, WHITE);
   if(timerAM >= 360 && timerAM < 450)
-    DrawText("5 AM", 1150, 30, 30, WHITE);
+    DrawText("4 AM", 1150, 30, 30, WHITE);
   if(timerAM >= 450 && timerAM < 540)
+    DrawText("5 AM", 1150, 30, 30, WHITE);
+  if(timerAM >= 540 && timerAM < 630)
     DrawText("6 AM", 1150, 30, 30, WHITE);
 }
 
@@ -240,6 +262,29 @@ void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Tex
     break;
   }
   }
+}
+
+//dibujamos el boton si estamos en la cámara 7, retornamos el valor del boton a cesar
+void DibujarBotonAscensor(bool abierto, int numero_camara, class Cesar &cesar, float &timerSAB, float &deltaSAB){
+  timerSAB += deltaSAB;
+  if(timerSAB > 10){
+    cesar.ascensor = true;
+  }
+  if(abierto && numero_camara == 7){
+    BotonNoches b;
+    b.dibujarrojo(900, 580, 110, 45, "Sabotear");
+    if(b.is_clicked()){
+      if(timerSAB > 20){ //cooldown
+      cesar.ascensor = false;
+      std::cout << "Funciona \n";
+      timerSAB = 0.0;
+      }
+    }
+    if(timerSAB > 20)
+      b.dibujar(900, 580, 110, 45, "Sabotear");
+  }
+  if(abierto && !cesar.ascensor)
+    DrawText("Ascensor Saboteado", 900, 650, 20, WHITE);
 }
 
 void EmpezarNoche1(){
@@ -320,6 +365,9 @@ void EmpezarNoche1(){
   float timerAM{0.0};
   float deltaAM = GetFrameTime();
 
+  float timerSAB{0.0};
+  float deltaSAB = GetFrameTime();
+
   
 
   //BUCLE DEL JUEGO
@@ -332,6 +380,7 @@ void EmpezarNoche1(){
     Mapa(mapa, abierto); //Dibujo las cámaras si están abiertas
     //DrawTexture(camara7, 0, 0, WHITE);
     DibujarCamaraActual(abierto, numero_camara, camara2, camara3, camara7, camara9, camara8, camara1);
+    DibujarBotonAscensor(abierto, numero_camara, cesar, timerSAB, deltaSAB);
     Camaras(camaras, abierto);
     DibujarMascara(mascara, abierto);
     DibujarAM(timerAM, deltaAM);
