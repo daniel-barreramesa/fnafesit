@@ -4,7 +4,7 @@
 class FondoAula{
   public:
     int x_{0};
-    void Dibujar(Texture2D aula);
+    void Dibujar(Texture2D aula, Texture2D cesaraula, class Cesar & cesar);
     void Update(bool abierto);
 
 };
@@ -28,7 +28,7 @@ void Mapa(Texture2D mapa, bool &abierto);
 void Camaras(Texture2D Camaras, bool abierto);
 void DibujarAM(float &timerAM, float &deltaAM);
 void DibujarMascara(Texture2D mascara, bool abierto);
-void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Texture2D camara3, Texture2D camara7, Texture2D camara9, Texture2D camara8, Texture2D camara1);
+void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Texture2D camara3, Texture2D camara7, Texture2D camara9, Texture2D camara8, Texture2D camara1, Texture2D camara4);
 void DibujarBotonAscensor(bool abierto, int numero_camara, class Cesar &cesar, float &timerSAB, float &deltaSAB);
 
 //CARLOS

@@ -4,10 +4,14 @@
 
 #include"night.h"
 
+bool vivo = true;
 
 //IMPLEMENTACIÓN DE LOS MÉTODOS Y FUNCIONES
-void FondoAula::Dibujar(Texture2D aula){
+void FondoAula::Dibujar(Texture2D aula, Texture2D cesaraula, class Cesar & cesar){
   DrawTexture(aula, x_, 0, WHITE);
+  if(cesar.numero_camara_ == 9){
+    DrawTexture(cesaraula, x_, 0, WHITE);
+  }
 }
 void FondoAula::Update(bool abierto){ //Ejecuta el movimiento de la imagen del fondo
   if(abierto == false){
@@ -192,11 +196,22 @@ void Cesar::mover(float &timer, float &delta){
       if(dist(gen)){
         std::cout << "Moverse \n";
         std::cout << "Cesar está en la cámara 9 \n";
-        numero_camara_ = 8; //FALTA MODIFICAR
+        numero_camara_ = 9;
       }
       else{
         std::cout << "No Moverse \n";
       }
+      timer = 0.0;
+    }
+    break;
+  case 9:
+    timer += delta;
+    if(timer >= 3.0 && !IsKeyDown(KEY_S)){
+      vivo = false;
+      std::cout << "MUERTO \n";
+    }
+    if(timer >= 20.0){
+      numero_camara_ = 5;
       timer = 0.0;
     }
     break;
@@ -236,7 +251,7 @@ void DibujarMascara(Texture2D mascara, bool abierto){
 //todas las texturas de las cámaras y personajes, y los objetos de los personajes.
 //Si el panel está abierto comprueba si en la cámara actual hay personajes, dibuja
 //el fondo actual y los personajes que se encuentren en ella.
-void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Texture2D camara3, Texture2D camara7, Texture2D camara9, Texture2D camara8, Texture2D camara1){
+void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Texture2D camara3, Texture2D camara7, Texture2D camara9, Texture2D camara8, Texture2D camara1, Texture2D camara4){
   if(abierto){
   switch (numero_camara){
     case 2:
@@ -256,6 +271,9 @@ void DibujarCamaraActual(bool abierto, int numero_camara, Texture2D camara2, Tex
     break;
     case 1:
       DrawTexture(camara1, 0, 0, WHITE);
+    break;
+    case 4:
+      DrawTexture(camara4, 0, 0, WHITE);
     break;
   
   default:
@@ -357,6 +375,14 @@ void EmpezarNoche1(){
   Texture2D camara1 = LoadTextureFromImage(foto10);
   UnloadImage(foto10);
 
+  Image foto11 = LoadImage("Images/cesaraula.png");
+  Texture2D cesaraula = LoadTextureFromImage(foto11);
+  UnloadImage(foto11);
+
+  Image foto12 = LoadImage("Images/cam4.png"); //falta poner
+  Texture2D camara4 = LoadTextureFromImage(foto12);
+  UnloadImage(foto12);
+
   
   //VARIABLES DE TIEMPO
   float timer{0.0};
@@ -376,10 +402,10 @@ void EmpezarNoche1(){
     //Dibujar
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    a1.Dibujar(aula);
+    a1.Dibujar(aula, cesaraula, cesar);
     Mapa(mapa, abierto); //Dibujo las cámaras si están abiertas
     //DrawTexture(camara7, 0, 0, WHITE);
-    DibujarCamaraActual(abierto, numero_camara, camara2, camara3, camara7, camara9, camara8, camara1);
+    DibujarCamaraActual(abierto, numero_camara, camara2, camara3, camara7, camara9, camara8, camara1, camara4);
     DibujarBotonAscensor(abierto, numero_camara, cesar, timerSAB, deltaSAB);
     Camaras(camaras, abierto);
     DibujarMascara(mascara, abierto);
@@ -430,6 +456,8 @@ void EmpezarNoche1(){
   UnloadTexture(camara9);
   UnloadTexture(camara8);
   UnloadTexture(camara1);
+  UnloadTexture(camara4);
+  UnloadTexture(cesaraula);
   
   CloseWindow();
 }
